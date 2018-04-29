@@ -52,5 +52,7 @@ function sortPlayers(players) {
 export function battle(players) {
   const promises = players.map(getUserData);
 
-  return Promise.all(promises).then(sortPlayers);
+  return Promise.all(promises)
+    .then(sortPlayers)
+    .catch(handleError);
 }
