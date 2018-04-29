@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
+import PlayerPreview from "./PlayerPreview";
+
 class PlayerInput extends React.Component {
   constructor(props) {
     super(props);
@@ -60,27 +62,6 @@ PlayerInput.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-function PlayerPreview(props) {
-  return (
-    <div>
-      <div className="column">
-        <img className="avatar" src={props.avatar} alt={props.username} />
-        <h2 className="username">@{props.username}</h2>
-        <a className="reset" onClick={props.onReset.bind(null, props.id)}>
-          Reset
-        </a>
-      </div>
-    </div>
-  );
-}
-
-PlayerPreview.propTypes = {
-  avatar: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  onReset: PropTypes.func.isRequired,
-};
-
 export default class Battle extends React.Component {
   constructor(props) {
     super(props);
@@ -129,11 +110,17 @@ export default class Battle extends React.Component {
         <div className="row">
           {playerOneName ? (
             <PlayerPreview
-              onReset={this.onPlayerReset}
               id="playerOne"
               username={this.state.playerOne.name}
               avatar={this.state.playerOne.image}
-            />
+            >
+              <a
+                className="reset"
+                onClick={this.onPlayerReset.bind(null, "playerOne")}
+              >
+                Reset
+              </a>
+            </PlayerPreview>
           ) : (
             <PlayerInput
               onSubmit={this.onPlayerSubmit}
@@ -143,11 +130,17 @@ export default class Battle extends React.Component {
           )}
           {playerTwoName ? (
             <PlayerPreview
-              onReset={this.onPlayerReset}
               id="playerTwo"
               username={this.state.playerTwo.name}
               avatar={this.state.playerTwo.image}
-            />
+            >
+              <a
+                className="reset"
+                onClick={this.onPlayerReset.bind(null, "playerTwo")}
+              >
+                Reset
+              </a>
+            </PlayerPreview>
           ) : (
             <PlayerInput
               onSubmit={this.onPlayerSubmit}
